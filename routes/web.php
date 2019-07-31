@@ -11,6 +11,5 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'RouterController@login')->name('login');
+Route::get('/{any}', 'RouterController@index')->where('any', '.*');
