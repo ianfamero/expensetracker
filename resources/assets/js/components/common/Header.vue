@@ -13,12 +13,13 @@
         <div class="navbar-start">
           <router-link class="navbar-item" to="/tracker">Tracker</router-link>
           <router-link class="navbar-item" to="/funds">Funds</router-link>
+          <router-link class="navbar-item" to="/debts">Debts</router-link>
         </div>
         <div class="navbar-end">
           <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link">Ian Benedict</a>
+            <a class="navbar-link">{{ user.name }}</a>
             <div class="navbar-dropdown">
-              <a class="navbar-item">My Profile</a>
+              <a class="navbar-item">Settings</a>
               <hr class="navbar-divider">
               <a class="navbar-item" href="/logout">Logout</a>
             </div>
@@ -46,8 +47,21 @@ document.addEventListener('DOMContentLoaded', () => {
 export default {
   data() {
     return {
-        
+      user: [],
     }
+  },
+  created() {
+    this.getUser();
+  },
+  methods: {
+    getUser: function() {
+      axios.get('/get-user')
+      .then(response => {
+        this.user = response.data.user;
+      }).catch(error => {
+
+      });
+    },
   }
 }
 </script>
