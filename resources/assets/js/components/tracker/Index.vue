@@ -1,27 +1,40 @@
 <template>
   <section class="section">
     <div class="container">
-      <div class="card">
-        <div class="card-header">
-          <div class="card-header-title">TRACKER</div>
-        </div>
-        <div class="card-content">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque ab aliquid ducimus ratione molestias saepe maxime labore porro cumque esse assumenda quas asperiores itaque vitae iure adipisci, aperiam sed? Natus.
-        </div>
+      <div>
+        <h1>PHP {{ user.savings_amount }}</h1>
+        <b-button @click="showAddExpenseModal">Add Expense</b-button>
       </div>
+
     </div>
+    <add-expense-modal ref="expense"></add-expense-modal>
   </section>
 </template>
 
 <script>
+var URL = '/tracker/';
 export default {
   data() {
     return {
-        
+      user: [],
     }
   },
   created() {
     document.title = "Tracker";
+    this.getDatas();
+  },
+  methods: {
+    getDatas: function() {
+      axios.get(URL + 'get-datas')
+      .then(response => {
+        this.user = response.data.user;
+      }).catch(error => {
+
+      });
+    },
+    showAddExpenseModal: function() {
+      this.$refs.expense.showModal();
+    },
   }
 }
 </script>

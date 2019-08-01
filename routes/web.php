@@ -18,5 +18,11 @@ Route::post('/register', 'RegisterController@register');
 
 Route::group(['middleware' => ['auth:web']], function() {
 
+    Route::get('/get-user', 'HeaderController@getUser');
+
+    // TRACKER
+    Route::get('/tracker/get-datas', 'TrackerController@getDatas');
+
+
     Route::get('/{any}', 'RouterController@index')->where('any', '.*');
 });
