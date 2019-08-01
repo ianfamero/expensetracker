@@ -19,6 +19,9 @@ class User extends Authenticatable
         'username',
         'email',
         'password',
+        'savings_amount',
+        'spendable_amount',
+        'receivable_amount'
     ];
 
     /**
@@ -30,4 +33,11 @@ class User extends Authenticatable
         'password', 
         'remember_token',
     ];
+
+    public function debt() {
+        return $this->hasMany('App\Debt');
+    }
+    public function expense() {
+        return $this->hasMany('App\Expense');
+    }
 }

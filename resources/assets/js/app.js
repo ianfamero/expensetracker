@@ -26,6 +26,7 @@ Vue.use(Buefy);
 
 Vue.component('user-login', require('./components/Login.vue'));
 Vue.component('main-header', require('./components/common/Header.vue'));
+Vue.component('add-expense-modal', require('./components/tracker/AddExpenseModal.vue'));
 
 const app = new Vue({
     el: '#app',

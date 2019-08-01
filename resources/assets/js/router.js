@@ -12,6 +12,10 @@ let routes = [
   {
     path: '/funds',
     component: require('./components/funds/Index.vue')
+  },
+  {
+    path: '/debts',
+    component: require('./components/debts/Index.vue')
   }
 ]
 
