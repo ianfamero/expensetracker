@@ -26,9 +26,25 @@ Vue.use(Buefy);
 
 Vue.component('user-login', require('./components/Login.vue'));
 Vue.component('main-header', require('./components/common/Header.vue'));
-Vue.component('main-navigation', require('./components/common/Navigation.vue'));
 
 const app = new Vue({
     el: '#app',
-    router
+    router,
+    methods: {
+      showToast: function(type, message) {
+        this.$toast.open({
+          duration: 4000,
+          message: message,
+          position: 'is-top',
+          type: type
+        });
+      },
+      validator: function(val) {
+        if(val != null) {
+          return true;
+        } else { 
+          return false; 
+        }
+      },
+    }
 });

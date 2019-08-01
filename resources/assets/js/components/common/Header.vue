@@ -2,7 +2,7 @@
   <div>
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
-        <a href="#" class="navbar-item"><h3><strong>EXPENSE TRACKER</strong></h3></a>
+        <a class="navbar-item" href="/"><h3><strong>EXPENSE TRACKER</strong></h3></a>
         <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="main-menu">
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
@@ -20,7 +20,7 @@
             <div class="navbar-dropdown">
               <a class="navbar-item">My Profile</a>
               <hr class="navbar-divider">
-              <a class="navbar-item">Logout</a>
+              <a class="navbar-item" href="/logout">Logout</a>
             </div>
           </div>
         </div>

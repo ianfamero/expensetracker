@@ -15,34 +15,38 @@
           </div>
           <div class="column is-4">
             <div class="card">
-                <div class="card-content">
-                  <b-tabs v-model="activeTab">
-                    <b-tab-item label="Login">
-                      <b-field label="Email">
-                        <b-input type="email" v-model="loginFormData.email"></b-input>
-                      </b-field>
-                      <b-field label="Password">
-                        <b-input type="password" v-model="loginFormData.password"></b-input>
-                      </b-field>
-                      <b-button type="is-primary" @click="login">Login</b-button>
-                    </b-tab-item>
-                    <b-tab-item label="Register">
-                      <b-field label="Name">
-                        <b-input type="name" v-model="registerFormData.name"></b-input>
-                      </b-field>
-                      <b-field label="Username">
-                        <b-input type="username" v-model="registerFormData.username"></b-input>
-                      </b-field>
-                      <b-field label="Email">
-                        <b-input type="email" v-model="registerFormData.email"></b-input>
-                      </b-field>
-                      <b-field label="Password">
-                        <b-input type="password" v-model="registerFormData.password"></b-input>
-                      </b-field>
-                      <b-button type="is-primary" @click="register">Register</b-button>
-                    </b-tab-item>
-                  </b-tabs>
-                </div>
+              <div class="card-content">
+                <b-tabs v-model="activeTab">
+
+                  <b-tab-item label="Login">
+                    <b-field label="Email" :type="{ 'is-danger': this.$root.validator(loginFormError.email) }" :message="{ [loginFormError.email] : this.$root.validator(loginFormError.email) }">
+                      <b-input type="email" v-model="loginFormData.email"></b-input>
+                    </b-field>
+                    <b-field label="Password" :type="{ 'is-danger': this.$root.validator(loginFormError.password) }" :message="{ [loginFormError.password] : this.$root.validator(loginFormError.password) }">
+                      <b-input type="password" v-model="loginFormData.password"></b-input>
+                    </b-field>
+                    <b-button type="is-primary" @click="login">Login</b-button>
+                  </b-tab-item>
+
+                  <b-tab-item label="Register">
+                    <b-field label="Name" :type="{ 'is-danger': this.$root.validator(registerFormError.name) }" :message="{ [registerFormError.name] : this.$root.validator(registerFormError.name) }">
+                      <b-input type="name" v-model="registerFormData.name"></b-input>
+                    </b-field>
+                    <b-field label="Username" :type="{ 'is-danger': this.$root.validator(registerFormError.username) }" :message="{ [registerFormError.username] : this.$root.validator(registerFormError.username) }">
+                      <b-input type="username" v-model="registerFormData.username"></b-input>
+                    </b-field>
+                    <b-field label="Email" :type="{ 'is-danger': this.$root.validator(registerFormError.email) }" :message="{ [registerFormError.email] : this.$root.validator(registerFormError.email) }">
+                      <b-input type="email" v-model="registerFormData.email"></b-input>
+                    </b-field>
+                    <b-field label="Password" :type="{ 'is-danger': this.$root.validator(registerFormError.password) }" :message="{ [registerFormError.password] : this.$root.validator(registerFormError.password) }">
+                      <b-input type="password" v-model="registerFormData.password"></b-input>
+                    </b-field>
+                    <b-button type="is-primary" @click="register">Register</b-button>
+                  </b-tab-item>
+
+                </b-tabs>
+              </div>
+              <b-loading :is-full-page="false" :active.sync="isLoading" :can-cancel="true"></b-loading>
             </div>
           </div>
         </div>
@@ -55,9 +59,12 @@
   export default {
     data() {
       return {
-        activeTab: 0,
         loginFormData: this.initLoginFormData(),
         registerFormData: this.initRegisterFormData(),
+        loginFormError: '',
+        registerFormError: '',
+        activeTab: 0,
+        isLoading: false,
       }
     },
     created() {
@@ -79,10 +86,34 @@
         }
       },
       login: function() {
-
+        axios.post('/login', this.loginFormData)
+        .then(response => {
+          window.location.href = "/tracker";
+        }).catch(error => {
+          if (error.response.status == 422) {
+            this.loginFormError = error.response.data;
+          } else {
+            this.loginFormError = [];
+            this.$root.showToast('is-danger', 'Incorrect username/password');
+          }
+        });
       },
       register: function() {
-
+        this.isLoading = true;
+        axios.post('/register', this.registerFormData)
+        .then(response => {
+          this.registerFormData = [];
+          this.registerFormError = [];
+          this.isLoading = false;
+          this.$root.showToast('is-success', 'Registration successful!');
+        }).catch(error => {
+          if (error.response.status == 422) {
+            this.registerFormError = error.response.data;
+          }  else {
+            this.$root.showToast('is-danger', 'Registration not successful!');
+          }
+          this.isLoading = false;
+        });
       }
     }
   }

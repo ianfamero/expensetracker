@@ -11,5 +11,12 @@
 |
 */
 
-Route::get('/', 'RouterController@login')->name('login');
-Route::get('/{any}', 'RouterController@index')->where('any', '.*');
+Route::get('/', 'Auth\LoginController@index')->name('login');
+Route::post('/login', 'Auth\LoginController@login');
+Route::get('/logout', 'Auth\LoginController@logout');
+Route::post('/register', 'RegisterController@register');
+
+Route::group(['middleware' => ['auth:web']], function() {
+
+    Route::get('/{any}', 'RouterController@index')->where('any', '.*');
+});
