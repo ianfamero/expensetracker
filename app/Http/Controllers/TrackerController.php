@@ -17,7 +17,9 @@ class TrackerController extends Controller
     $inputs = $request->all();
     $user = Auth::user();
     $expenses = Expense::where('expense_date', $inputs['date'])->get();
-    return compact('user','expenses');
+    $total = Expense::where('expense_date', $inputs['date'])->sum('expense_amount');
+
+    return compact('user','expenses','total');
   }
   public function addExpense(ExpenseRequest $request) {
     $inputs = $request->all();
@@ -38,5 +40,12 @@ class TrackerController extends Controller
     Expense::create($inputs);
 
     return $inputs;
+  }
+  public function deleteExpense($id) {
+    $user = Auth::user();
+    $expense = Expense::where('id',$id)->get();
+    $new_spendable = $user['spendable_amount'] + $expense[0]['expense_amount'];
+    User::find($user['id'])->update(array('spendable_amount' => $new_spendable));
+    Expense::destroy($id);
   }
 }

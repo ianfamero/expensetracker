@@ -21,6 +21,10 @@ require('moment/locale/en-gb');
 Vue.use(VueRouter);
 Vue.use(Buefy);
 
+Vue.filter('numberFormat', function (number) {
+  return number.toLocaleString("en");
+});
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

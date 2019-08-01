@@ -23,6 +23,7 @@ Route::group(['middleware' => ['auth:web']], function() {
     // TRACKER
     Route::post('/tracker/get-datas', 'TrackerController@getDatas');
     Route::post('/tracker/add', 'TrackerController@addExpense');
+Route::get('/tracker/delete/{id}', 'TrackerController@deleteExpense');
 
     // FUND
     Route::get('/funds/get-datas', 'FundController@getDatas');

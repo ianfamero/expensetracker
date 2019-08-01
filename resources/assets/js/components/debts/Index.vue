@@ -6,7 +6,7 @@
           <div class="card-header-title">DEBTS</div>
         </div>
         <div class="card-content">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque ab aliquid ducimus ratione molestias saepe maxime labore porro cumque esse assumenda quas asperiores itaque vitae iure adipisci, aperiam sed? Natus.
+          Coming soon!
         </div>
       </div>
     </div>
