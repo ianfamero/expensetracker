@@ -21,6 +21,7 @@
     },
     "dependencies": {
         "buefy": "^0.7.10",
+        "moment": "^2.24.0",
         "vue-router": "^3.0.7"
     }
 }

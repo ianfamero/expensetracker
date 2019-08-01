@@ -21,7 +21,13 @@ Route::group(['middleware' => ['auth:web']], function() {
     Route::get('/get-user', 'HeaderController@getUser');
 
     // TRACKER
-    Route::get('/tracker/get-datas', 'TrackerController@getDatas');
+    Route::post('/tracker/get-datas', 'TrackerController@getDatas');
+    Route::post('/tracker/add', 'TrackerController@addExpense');
+
+    // FUND
+    Route::get('/funds/get-datas', 'FundController@getDatas');
+    Route::post('/funds/add', 'FundController@addFund');
+    Route::post('/funds/transfer', 'FundController@transferFunds');
 
 
     Route::get('/{any}', 'RouterController@index')->where('any', '.*');

@@ -15,6 +15,9 @@ import router from './router';
 import Buefy from 'buefy';
 import 'buefy/dist/buefy.css';
 
+window.moment = require('moment');
+require('moment/locale/en-gb');
+
 Vue.use(VueRouter);
 Vue.use(Buefy);
 
@@ -27,6 +30,8 @@ Vue.use(Buefy);
 Vue.component('user-login', require('./components/Login.vue'));
 Vue.component('main-header', require('./components/common/Header.vue'));
 Vue.component('add-expense-modal', require('./components/tracker/AddExpenseModal.vue'));
+Vue.component('add-fund-modal', require('./components/funds/AddFundModal.vue'));
+Vue.component('transfer-fund-modal', require('./components/funds/TransferFundModal.vue'));
 
 const app = new Vue({
     el: '#app',
