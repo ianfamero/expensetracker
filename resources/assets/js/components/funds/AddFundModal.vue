@@ -10,7 +10,7 @@
         </b-field>
       </section>
       <footer class="modal-card-foot">
-        <button class="button" type="button" @click="isShowModal = false">Close</button>
+        <button class="button" type="button" @click="closeModal">Close</button>
         <b-button type="is-primary" @click="addFund">Add</b-button>
       </footer>
     </div>
@@ -37,7 +37,7 @@ export default {
       axios.post(URL + 'add', this.formData)
       .then(response => {
         this.formError = [];
-        this.$root.showToast('is-success', 'Success!');
+        this.$root.showToast('is-success', 'Success! An amount of &#8369;' + this.formData.amount + ' has been added to your spendable funds.');
         this.formData = this.initFormData();
         this.$parent.getDatas();
         this.isShowModal = false;
@@ -45,13 +45,17 @@ export default {
         if (error.response.status == 422) {
           this.formError = error.response.data;
         }  else {
-          this.formError = [];
-          this.$root.showToast('is-danger', 'Failed.');
+          this.$root.showToast('is-danger', 'Failed. Please try again.');
         }
       });
     },
     showModal: function() {
       Vue.nextTick(() => this.isShowModal = true);
+    },
+    closeModal: function() {
+      this.isShowModal = false;
+      this.formData = this.initFormData();
+      this.formError = [];
     }
   }
 }

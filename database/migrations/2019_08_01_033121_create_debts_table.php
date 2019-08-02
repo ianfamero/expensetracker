@@ -18,6 +18,7 @@ class CreateDebtsTable extends Migration
             $table->unsignedInteger('user_id');
             $table->string('debt_description');
             $table->integer('debt_amount');
+            $table->date('debt_due_date');
             $table->timestamps();
         });
     }

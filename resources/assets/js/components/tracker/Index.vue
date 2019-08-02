@@ -9,12 +9,22 @@
       </div>
       <div class="card">
         <div class="card-content">
-          <b-table :data="expenses" hoverable>
+          <b-table :data="expenses" 
+            :paginated="isPaginated"
+            :per-page="perPage"
+            :current-page.sync="currentPage"
+            :pagination-simple="isPaginationSimple"
+            :pagination-position="paginationPosition"
+            aria-next-label="Next page"
+            aria-previous-label="Previous page"
+            aria-page-label="Page"
+            aria-current-label="Current page"
+            hoverable>
             <template slot-scope="props">
               <b-table-column field="expense_description" label="Description" sortable>
                 {{ props.row.expense_description }}
               </b-table-column>
-              <b-table-column field="expense_amount" label="Amount" width="250" sortable>
+              <b-table-column field="expense_amount" label="Amount" width="250" class="semi-bold-18" sortable>
                 &#8369; {{ props.row.expense_amount  | numberFormat }}
               </b-table-column>
               <b-table-column label="Actions" width="50">
@@ -25,7 +35,9 @@
               No expense today so far. Good job!
             </template>
             <template slot="footer">
-              Total: {{ total }}
+              <div class="semi-bold-18">
+                Total: &#8369; {{ total | numberFormat }}
+              </div>
             </template>
           </b-table>
         </div>
@@ -46,6 +58,13 @@ export default {
       total: '',
       date: new Date(),
       isLoading: false,
+
+      isPaginated: true,
+      isPaginationSimple: false,
+      paginationPosition: 'bottom',
+      defaultSortDirection: 'asc',
+      currentPage: 1,
+      perPage: 5
     }
   },
   watch: {

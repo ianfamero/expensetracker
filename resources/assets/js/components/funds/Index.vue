@@ -10,10 +10,10 @@
         <div class="card-content">
           <b-table :data="summary" hoverable>
             <template slot-scope="props">
-              <b-table-column field="name" label="" sortable>
+              <b-table-column field="name">
                 {{ props.row.name }}
               </b-table-column>
-              <b-table-column field="amount" label="Amount" width="250" sortable>
+              <b-table-column field="amount" label="Amount" width="250" class="semi-bold-18">
                 &#8369; {{ props.row.amount  | numberFormat }}
               </b-table-column>
             </template>

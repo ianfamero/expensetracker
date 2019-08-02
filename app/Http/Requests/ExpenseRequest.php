@@ -32,6 +32,13 @@ class ExpenseRequest extends FormRequest
         ];
     }
 
+    public function attributes() {
+        return [
+            'expense_description' => 'description',
+            'expense_amount' => 'amount'
+        ];
+    }
+
     /**
      * Handle a failed validation attempt.
      *

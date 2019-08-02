@@ -38,7 +38,7 @@
         </div>
       </section>
       <footer class="modal-card-foot">
-        <button class="button" type="button" @click="isShowModal = false">Close</button>
+        <button class="button" type="button" @click="closeModal">Close</button>
         <b-button type="is-primary" @click="transferFunds">Transfer</b-button>
       </footer>
     </div>
@@ -88,17 +88,22 @@ export default {
       }).catch(error => {
         if (error.response.status == 422) {
           this.formError = error.response.data;
-        } else if(error.response.status == 500) {
-          this.formError = [];
-          this.$root.showToast('is-danger', 'Source/destination cannot be the same.');
+        } else if(error.response.status == 400) {
+          this.$root.showToast('is-danger', 'Insufficient funds!');
+        } else if(error.response.status == 405) {
+          this.$root.showToast('is-danger', 'You cannot transfer from the same source and destination!');
         } else {
-          this.formError = [];
-          this.$root.showToast('is-danger', 'Failed.');
+          this.$root.showToast('is-danger', 'Failed. Please try again.');
         }
       });
     },
     showModal: function() {
       Vue.nextTick(() => this.isShowModal = true);
+    },
+    closeModal: function() {
+      this.isShowModal = false;
+      this.formData = this.initFormData();
+      this.formError = [];
     }
   }
 }
