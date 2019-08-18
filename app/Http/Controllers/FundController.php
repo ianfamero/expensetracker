@@ -18,12 +18,12 @@ class FundController extends Controller
       array(
         'id' => 0,
         'name' => 'Savings',
-        'amount' => $user['savings_amount'],
+        'amount' => $user['savings_amount']
       ),
       array(
         'id' => 1,
         'name' => 'Spendable',
-        'amount' => $user['spendable_amount'],
+        'amount' => $user['spendable_amount']
       ),
       array(
         'id' => 2,
@@ -37,7 +37,7 @@ class FundController extends Controller
   public function addFund(FundRequest $request) {
     $inputs = $request->all();
     $user = Auth::user();
-    $amount = (int)$user['spendable_amount'] + (int)$inputs['amount'];
+    $amount = (double)$user['spendable_amount'] + (double)$inputs['amount'];
     User::find($user['id'])->update(array('spendable_amount' => $amount));
   }
 

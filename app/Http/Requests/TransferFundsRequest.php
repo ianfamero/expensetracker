@@ -28,7 +28,7 @@ class TransferFundsRequest extends FormRequest
         return [
             'source' => 'required',
             'destination' => 'required',
-            'amount' => 'required|integer'
+            'amount' => 'required|numeric'
         ];
     }
 

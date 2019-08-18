@@ -26,7 +26,7 @@ class FundRequest extends FormRequest
     public function rules()
     {
         return [
-            'amount' => 'required|integer',
+            'amount' => 'required|numeric',
         ];
     }
 

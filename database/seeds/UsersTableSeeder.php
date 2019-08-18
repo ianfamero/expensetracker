@@ -15,7 +15,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'Ian Benedict Famero',
             'email' => 'ianfamero@gmail.com',
             'username' => 'ianfamero',
-            'password' => bcrypt('goldfish1'),
+            'password' => bcrypt('silvertoes1'),
             'savings_amount' => 0,
             'spendable_amount' => 0,
             'receivable_amount' => 0

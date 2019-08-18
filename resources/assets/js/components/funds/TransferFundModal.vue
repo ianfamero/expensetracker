@@ -78,10 +78,12 @@ export default {
       }
     },
     transferFunds: function() {
+      let source = _.find(this.type, {'id': this.formData.source});
+      let destination = _.find(this.type, {'id': this.formData.destination});
       axios.post(URL + 'transfer', this.formData)
       .then(response => {
         this.formError = [];
-        this.$root.showToast('is-success', 'Success!');
+        this.$root.showToast('is-success', 'Success! An amount of &#8369;' + this.formData.amount + ' has been transfered to your ' + destination.value.toLowerCase() + ' funds.');
         this.formData = this.initFormData();
         this.$parent.getDatas();
         this.isShowModal = false;

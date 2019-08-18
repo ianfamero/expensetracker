@@ -27,7 +27,7 @@ class ExpenseRequest extends FormRequest
     {
         return [
             'expense_description' => 'required',
-            'expense_amount' => 'required|integer',
+            'expense_amount' => 'required|numeric',
             'expense_date' => 'required|date'
         ];
     }

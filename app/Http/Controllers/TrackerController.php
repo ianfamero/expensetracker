@@ -25,6 +25,7 @@ class TrackerController extends Controller
   public function addExpense(ExpenseRequest $request) {
     try {
       DB::beginTransaction();
+
       $inputs = $request->all();
       $user = Auth::user();
   
@@ -41,20 +42,31 @@ class TrackerController extends Controller
   
       User::find($user['id'])->update(array('spendable_amount' => $new_spendable));
       Expense::create($inputs);
+
       DB::commit();
     } catch(\Exception $ex) {
       DB::rollBack();
     }
+  }
 
+  public function editExpense(ExpenseRequest $request) {
+    try {
+      $inputs = $request->all();
+      Expense::find($inputs['id'])->update(array('expense_description' => $inputs['expense_description']));
+    } catch(\Exception $ex) {
+
+    }
   }
   public function deleteExpense($id) {
     try {
       DB::beginTransaction();
+
       $user = Auth::user();
       $expense = Expense::where('id',$id)->get();
       $new_spendable = $user['spendable_amount'] + $expense[0]['expense_amount'];
       User::find($user['id'])->update(array('spendable_amount' => $new_spendable));
       Expense::destroy($id);
+
       DB::commit();
     } catch(\Exception $ex) {
       DB::rollBack();
