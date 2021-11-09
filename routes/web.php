@@ -11,6 +11,26 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', 'Auth\LoginController@index')->name('login');
+Route::post('/login', 'Auth\LoginController@login');
+Route::get('/logout', 'Auth\LoginController@logout');
+Route::post('/register', 'RegisterController@register');
+
+Route::group(['middleware' => ['auth:web']], function() {
+
+    Route::get('/get-user', 'HeaderController@getUser');
+
+    // TRACKER
+    Route::post('/tracker/get-datas', 'TrackerController@getDatas');
+    Route::post('/tracker/add', 'TrackerController@addExpense');
+    Route::post('/tracker/edit', 'TrackerController@editExpense');
+Route::get('/tracker/delete/{id}', 'TrackerController@deleteExpense');
+
+    // FUND
+    Route::get('/funds/get-datas', 'FundController@getDatas');
+    Route::post('/funds/add', 'FundController@addFund');
+    Route::post('/funds/transfer', 'FundController@transferFunds');
+
+
+    Route::get('/{any}', 'RouterController@index')->where('any', '.*');
 });
