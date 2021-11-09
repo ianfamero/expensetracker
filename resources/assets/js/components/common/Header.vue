@@ -18,8 +18,9 @@
         <div class="navbar-end">
           <div class="navbar-item has-dropdown is-hoverable">
             <a class="navbar-link">{{ user.name }}</a>
-            <div class="navbar-dropdown">
-              <a class="navbar-item">Options</a>
+            <div class="navbar-dropdown is-right">
+              <a class="navbar-item">My Reports</a>
+              <a class="navbar-item">Transactions History</a>
               <hr class="navbar-divider">
               <a class="navbar-item" href="/logout">Logout</a>
             </div>

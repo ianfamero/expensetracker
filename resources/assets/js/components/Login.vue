@@ -68,7 +68,7 @@
       }
     },
     created() {
-      document.title = "Login";
+      document.title = "Expense Tracker";
     },
     methods: {
       initLoginFormData: function() {

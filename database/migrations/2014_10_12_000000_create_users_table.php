@@ -19,9 +19,9 @@ class CreateUsersTable extends Migration
             $table->string('username')->unique();
             $table->string('email')->unique();
             $table->string('password');
-            $table->integer('savings_amount');
-            $table->integer('spendable_amount');
-            $table->integer('receivable_amount');
+            $table->double('savings_amount', 8, 2);
+            $table->double('spendable_amount', 8, 2);
+            $table->double('receivable_amount', 8, 2);
             $table->rememberToken();
             $table->timestamps();
         });
